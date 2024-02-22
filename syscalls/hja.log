@@ -1,0 +1,24 @@
+Windows System Assessment Tool
+> Running: Feature Enumeration ''
+> Run Time 00:00:00.00
+> Running: Storage Assessment '-drive C -ran -read'
+> Run Time 00:00:00.14
+> Running: Storage Assessment '-drive C -seq -read'
+> Run Time 00:00:02.06
+> Running: Storage Assessment '-drive C -seq -write'
+> Run Time 00:00:01.09
+> Running: Storage Assessment '-drive C -flush -seq'
+> Run Time 00:00:00.25
+> Running: Storage Assessment '-drive C -flush -ran'
+> Run Time 00:00:00.23
+> Dshow Video Encode Time                      0.00000 s
+> Dshow Video Decode Time                      0.00000 s
+> Media Foundation Decode Time                 0.00000 s
+> Disk  Random 16.0 Read                       2337.67 MB/s          9.3
+> Disk  Sequential 64.0 Read                   7246.99 MB/s          9.9
+> Disk  Sequential 64.0 Write                  5708.71 MB/s          9.8
+> Average Read Time with Sequential Writes     0.038 ms          8.9
+> Latency: 95th Percentile                     0.096 ms          8.9
+> Latency: Maximum                             0.501 ms          8.9
+> Average Read Time with Random Writes         0.038 ms          8.9
+> Total Run Time 00:00:03.92
