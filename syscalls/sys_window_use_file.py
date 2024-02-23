@@ -1,18 +1,23 @@
 import os
 
-logf="hja2.log"
+dsk_drv = "C"
 
-cmd=[]
-cmd.append("winsat disk -drive C > ")
-cmd.append(logf)
+logf="hja"+dsk_drv+".log"
 
-# Convert list to string
-cov_str = map(str, cmd)
-cmd_str = "".join(cov_str)
+cmd = "winsat disk -drive C > " + logf
+#print(cmd)
 
-ret = os.system(cmd_str)
-#ret = os.system('winsat disk -drive C > logf')
-print(ret)
+ret = os.system(cmd)
+#print(ret)
 
 file = open(logf, 'rt')
-print(file.read(),end="")
+
+lines = file.read().splitlines()
+file.close()
+for line in lines:
+  index = line.find("Disk")
+  if (index != -1):
+    print(line[index:])
+               
+# while file:
+# print(file.read(),end="")

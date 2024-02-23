@@ -14,3 +14,4 @@ mpu
 MotorsTest
 __pycache__
 *.autosave
+*.log
