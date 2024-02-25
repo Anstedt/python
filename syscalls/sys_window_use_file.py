@@ -17,18 +17,20 @@ file.close()
 for line in lines:
   index = line.find("Disk")
   if (index != -1):
-    # s1 = line[index:]
-    # Find the index to the end of the first string by looking for trailing spaces
-    s2i = line.find("   ")
-    s2 = line[s2i:]
-    s2 = s2.strip()
-    s3i = s2.find("   ")
-    s2 = s2[:s3i]
-    s1 = line[index:s2i]
-    v2 = s2[:s2.find(" ")]
-    u = s2[s2.find(" "):]
-    # print(line[index:])
-    print("s1=", s1, "s2=", s2, "v2=", v2, "u=", u)
+    # Find the index to the end of the title by looking for trailing spaces
+    title_index = line.find("   ")
+    # The result is from the end of the title to the end of the string, and get rid of leading and trailing spaces
+    result = line[title_index:].strip()
+    # Now find the end of the result so we can get the value and units but not the trailing numbers
+    result_index = result.find("   ")
+    # This is the result and the units
+    result = result[:result_index]
+
+    # Now pick up the pieces we want
+    title = line[index:title_index]
+    value = float(result[:result.find(" ")])
+    units = result[result.find(" "):]
+    print("title=", title, "result=", result, "value=", value, "units=", units)
 
 # while file:
 # print(file.read(),end="")
