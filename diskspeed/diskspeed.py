@@ -3,6 +3,22 @@ import os
 from tkinter import *
 from tkinter import ttk
 
+print("Start Disk Letters")
+drives_cmd="wmic logicaldisk get name > logd.log"
+os.system(drives_cmd)
+
+# Now read the file and process it
+file = open("logd.log", 'rt')
+lines = file.read().splitlines()
+file.close()
+
+for line in lines:
+  index = line.find(":")
+  if (index != -1):
+    print(line[0:2])
+
+print("Start Disk Speed")
+# Disk Spee
 dsk_drv = "C"
 
 logf="hja"+dsk_drv+".log"
@@ -40,8 +56,8 @@ for line in lines:
     units_list[list_index] = result[result.find(" "):]
     list_index = list_index + 1
     # print("title=", title, "result=", result, "value=", value, "units=", units)
-    print(len(title_list))
-    print(title_list)
+    # print(len(title_list))
+    # print(title_list)
 
 root = Tk()
 ttk.Entry(root).grid()
