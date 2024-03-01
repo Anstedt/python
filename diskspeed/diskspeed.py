@@ -14,7 +14,7 @@ class DiskSpeed:
     self.display_disk_info()
 
   def my_print(self, event):
-    print("You Select" , self.disk_letters.currentText(), "This Letter", event)
+    print("You Select" , self.disks[self.disk_letters.current()], "This Letter", event)
     
   def get_disks(self):
     print("Start Disk Letters")
@@ -42,7 +42,6 @@ class DiskSpeed:
     
     self.disk_letters.configure(values = self.disks)
     self.disk_letters.grid()
-    # self.disk_letters.current()
     # disk_letters.bind('<<ComboboxSelected>>', self.my_print)
     ### disk_letters.bind('<<ComboboxSelected>>', lambda even: print(self.disk_name.get()))
     self.disk_letters.bind('<<ComboboxSelected>>', self.my_print)
