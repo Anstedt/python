@@ -4,28 +4,50 @@ from tkinter import *
 from tkinter import ttk
 
 class DiskSpeed:
+  disks = []
+  
   def __init__(self):
     self.root = Tk()
     self.get_disks()
     self.get_disk_info()
     self.parse_disk_info()
     self.display_disk_info()
+
+  def my_print(self, event):
+    print("You Select" , self.disk_letters.currentText(), "This Letter", event)
     
   def get_disks(self):
     print("Start Disk Letters")
     drives_cmd = "wmic logicaldisk get name > drive_letters.log"
     os.system(drives_cmd)
-
+    
     # Now read the file and process it
     file = open("drive_letters.log", 'rt')
     lines = file.read().splitlines()
     file.close()
 
+    x = 0
     for line in lines:
       index = line.find(":")
       if (index != -1):
-        print(line[0:2])
+        self.disks.insert(x, (line[0:2]))
+        print(self.disks[x])
+        x += 1
 
+    #self.disk_name = tk.StringVar(value = self.disks[0])
+    # print(self.disks[0], self.disk_name.get())
+    ###disk_letters = ttk.Combobox(self.root, textvariable = self.disk_name)
+    self.disk_letters = ttk.Combobox(self.root)
+
+    
+    self.disk_letters.configure(values = self.disks)
+    self.disk_letters.grid()
+    # self.disk_letters.current()
+    # disk_letters.bind('<<ComboboxSelected>>', self.my_print)
+    ### disk_letters.bind('<<ComboboxSelected>>', lambda even: print(self.disk_name.get()))
+    self.disk_letters.bind('<<ComboboxSelected>>', self.my_print)
+
+    
   def get_disk_info(self):
     print("Start Disk Speed")
     # Disk Speed
@@ -33,7 +55,7 @@ class DiskSpeed:
 
     logf="hja"+dsk_drv+".log"
 
-    # This gets the disk speed aand saves it to a file
+    # This gets the disk speed and saves it to a file
     cmd = "winsat disk -drive C > " + logf
     # os.system(cmd)
 
@@ -72,7 +94,7 @@ class DiskSpeed:
 
   def display_disk_info(self):
     ttk.Entry(self.root).grid()
-
+    
     lp = ttk.Label(self.root, text="Title", font="helvetica 24", width=19)
     lp.grid(padx=0, pady=0)
 
@@ -88,7 +110,7 @@ class DiskSpeed:
 def main():
   ds = DiskSpeed();
   ds.root.mainloop()
-  
+
 if __name__ == '__main__':
   main()
 
