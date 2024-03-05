@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 from tkinter import *
 from tkinter import ttk
@@ -38,9 +39,9 @@ class DiskSpeed:
     # print(self.disks[0], self.disk_name.get())
     ###disk_letters = ttk.Combobox(self.root, textvariable = self.disk_name)
     self.disk_letters = ttk.Combobox(self.root)
-
     
     self.disk_letters.configure(values = self.disks)
+    ### self.disk_letters.grid(column = 0, row = 0)
     self.disk_letters.grid()
     # disk_letters.bind('<<ComboboxSelected>>', self.my_print)
     ### disk_letters.bind('<<ComboboxSelected>>', lambda even: print(self.disk_name.get()))
@@ -52,11 +53,11 @@ class DiskSpeed:
     # Disk Speed
     dsk_drv = "C"
 
-    logf="hja"+dsk_drv+".log"
+    logf="disk_"+dsk_drv+"_info.log"
 
-    # This gets the disk speed and saves it to a file
-    cmd = "winsat disk -drive C > " + logf
-    # os.system(cmd)
+    # Get Disk Info
+    result = subprocess.run(["winsat" , "disk" , "-drive", "C"], shell=True, capture_output=True, text=True)
+    print("Result:", result.stdout, file=open(logf, 'w'))
 
     # Now read the file and process it
     file = open(logf, 'rt')
@@ -87,24 +88,47 @@ class DiskSpeed:
         self.value_list[list_index] = float(result[:result.find(" ")])
         self.units_list[list_index] = result[result.find(" "):]
         list_index = list_index + 1
-        # print("title=", title, "result=", result, "value=", value, "units=", units)
-        # print(len(title_list))
-        # print(title_list)
 
   def display_disk_info(self):
-    ttk.Entry(self.root).grid()
-    
+    ttk.Entry(self.root).grid(column = 1, row = 0)
+
+    # Title
     lp = ttk.Label(self.root, text="Title", font="helvetica 24", width=19)
     lp.grid(padx=0, pady=0)
+    lp.grid(column = 0, row = 1)
 
+    # Disk Info
     l1 = ttk.Label(self.root, text=self.title_list[0], font="helvetica 16", width=28)
     l1.grid(padx=1, pady=0)
+    l1.grid(column = 0, row = 2)
 
+    global llr_text
+    llr_text = "Hello"
+    l1r = ttk.Label(self.root, text=llr_text, font="helvetica 16", width=28)
+    l1r.grid(padx=1, pady=0)
+    l1r.grid(column = 1, row = 2)
+    
+    # Disk Info
     l2 = ttk.Label(self.root, text=self.title_list[1], font="helvetica 16", width=28)
     l2.grid(padx=1, pady=0)
+    l2.grid(column = 0, row = 3)
 
+    global l2r_text
+    l2r_text = "World"
+    l2r = ttk.Label(self.root, text=l2r_text, font="helvetica 16", width=28)
+    l2r.grid(padx=1, pady=0)
+    l2r.grid(column = 1, row = 3)
+
+    # Disk Info
     l3 = ttk.Label(self.root, text=self.title_list[2], font="helvetica 16", width=28)
     l3.grid(padx=1, pady=0)
+    l3.grid(column = 0, row = 4)
+
+    global l3r_text
+    l3r_text = "Great"
+    l3r = ttk.Label(self.root, text=l3r_text, font="helvetica 16", width=28)
+    l3r.grid(padx=1, pady=0)
+    l3r.grid(column = 1, row = 4)
 
 def main():
   ds = DiskSpeed();
