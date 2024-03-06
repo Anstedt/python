@@ -103,64 +103,45 @@ class DiskSpeed:
   def display_disk_info(self):
     ttk.Entry(self.root).grid(column = 1, row = 0)
 
-    # Title
+    # Heading
     lp = ttk.Label(self.root, text="Title", font="helvetica 24", width=19)
     lp.grid(padx=0, pady=0)
     lp.grid(column = 0, row = 1)
 
     # Disk Info 1
-    l1 = ttk.Label(self.root, text=self.title_list[0], font="helvetica 16", width=28)
-    l1.grid(padx=1, pady=0)
-    l1.grid(column = 0, row = 2)
-
     global l1r_text, l1r
-    l1r_text = StringVar()
-    l1r_text.set(self.value_list[0])
-    l1r = ttk.Label(self.root, textvariable=l1r_text, font="helvetica 16", width=28)
-    l1r.grid(padx=1, pady=0)
-    l1r.grid(column = 1, row = 2)
-
     global l1v_text, l1v
-    l1v_text = StringVar()
-    l1v_text.set(self.units_list[0])
-    l1v = ttk.Label(self.root, textvariable=l1v_text, font="helvetica 16", width=28)
-    l1v.grid(padx=1, pady=0)
-    l1v.grid(column = 2, row = 2)
+    (l1r_text, l1r, l1v_text, l1v) = self.create_disk_info(0, 0, 2)
 
     # Disk Info 2
-    l2 = ttk.Label(self.root, text=self.title_list[1], font="helvetica 16", width=28)
-    l2.grid(padx=1, pady=0)
-    l2.grid(column = 0, row = 3)
-
-    global l2r
-    l2r = ttk.Label(self.root, text="two", font="helvetica 16", width=28)
-    l2r.grid(padx=1, pady=0)
-    l2r.grid(column = 1, row = 3)
-
+    global l2r_text, l2r
     global l2v_text, l2v
-    l2v_text = StringVar()
-    l2v_text.set(self.units_list[1])
-    l2v = ttk.Label(self.root, textvariable=l2v_text, font="helvetica 16", width=28)
-    l2v.grid(padx=1, pady=0)
-    l2v.grid(column = 2, row = 3)
+    (l2r_text, l2r, l2v_text, l2v) = self.create_disk_info(1, 0, 3)
 
     # Disk Info 3
-    l3 = ttk.Label(self.root, text=self.title_list[2], font="helvetica 16", width=28)
-    l3.grid(padx=1, pady=0)
-    l3.grid(column = 0, row = 4)
-
-    global l3r
-    l3r = ttk.Label(self.root, text="three", font="helvetica 16", width=28)
-    l3r.grid(padx=1, pady=0)
-    l3r.grid(column = 1, row = 4)
-
+    global l3r_text, l3r
     global l3v_text, l3v
-    l3v_text = StringVar()
-    l3v_text.set(self.units_list[2])
-    l3v = ttk.Label(self.root, textvariable=l3v_text, font="helvetica 16", width=28)
-    l3v.grid(padx=1, pady=0)
-    l3v.grid(column = 2, row = 4)
+    (l3r_text, l3r, l3v_text, l3v) = self.create_disk_info(2, 0, 4)
 
+  def create_disk_info(self, index, col, row_num):
+    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=28)
+    lb.grid(padx=1, pady=0)
+    lb.grid(column = col, row = row_num)
+
+    lbr_text = StringVar()
+    lbr_text.set(self.value_list[index])
+    lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=28)
+    lbr.grid(padx=1, pady=0)
+    lbr.grid(column = (col+1), row = row_num)
+
+    lbv_text = StringVar()
+    lbv_text.set(self.units_list[index])
+    lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=28)
+    lbv.grid(padx=1, pady=0)
+    lbv.grid(column = (col+2), row = row_num)
+
+    return(lbr_text, lbr, lbv_text, lbv) 
+        
 def main():
   ds = DiskSpeed();
   ds.root.mainloop()
@@ -169,7 +150,7 @@ if __name__ == '__main__':
   main()
 
 
-      # def font_changed(font):
+# def font_changed(font):
 #     l['font'] = font
 
 # root.tk.call('tk', 'fontchooser', 'configure', '-font', 'helvetica 24', '-command', root.register(font_changed))
