@@ -95,9 +95,9 @@ class DiskSpeed:
         result = result[:result_index]
 
         # Now pick up the pieces we want
-        self.title_list[list_index] = line[index:title_index]
-        self.value_list[list_index] = float(result[:result.find(" ")])
-        self.units_list[list_index] = result[result.find(" "):]
+        self.title_list[list_index] = line[index:title_index].strip()
+        self.value_list[list_index] = f"{float(result[:result.find(" ")]):.2f}"
+        self.units_list[list_index] = result[result.find(" "):].strip()
         list_index = list_index + 1
 
   def display_disk_info(self):
@@ -132,19 +132,19 @@ class DiskSpeed:
 
   def create_disk_info(self, index, col, row_num):
     # "flat", "raised", "sunken", "ridge", "solid", and "groove".
-    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=28, borderwidth=2, relief="raised")
+    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=22, borderwidth=2, relief="raised")
     lb.grid(padx=1, pady=0)
     lb.grid(column = col, row = row_num)
 
     lbr_text = StringVar()
     lbr_text.set(self.value_list[index])
-    lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=28, borderwidth=4, relief="raised")
+    lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=10, borderwidth=4, relief="raised", anchor="e")
     lbr.grid(padx=1, pady=0)
     lbr.grid(column = (col+1), row = row_num)
 
     lbv_text = StringVar()
     lbv_text.set(self.units_list[index])
-    lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=28, borderwidth=4, relief="raised")
+    lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=6, borderwidth=4, relief="raised", anchor="center")
     lbv.grid(padx=1, pady=0)
     lbv.grid(column = (col+2), row = row_num)
 
