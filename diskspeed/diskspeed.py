@@ -66,9 +66,9 @@ class DiskSpeed:
 
     logf="disk_"+dsk_drv+"_info.log"
 
-    # Get Disk Info
-    result = subprocess.run(["winsat" , "disk" , "-drive", "C"], shell=True, capture_output=True, text=True)
-    print("Result:", result.stdout, file=open(logf, 'w'))
+    # Get Disk Info, debug
+    # result = subprocess.run(["winsat" , "disk" , "-drive", "C"], shell=True, capture_output=True, text=True)
+    # print("Result:", result.stdout, file=open(logf, 'w'))
 
     # Now read the file and process it
     file = open(logf, 'rt')
@@ -101,10 +101,17 @@ class DiskSpeed:
         list_index = list_index + 1
 
   def display_disk_info(self):
-    ttk.Entry(self.root).grid(column = 1, row = 0)
+    # estyle = ttk.Style()
+    # estyle.element_create("plain.field", "from", "clam")
+    # estyle.layout("EntryStyle.TEntry", [('Entry.plain.field', {'children': [('Entry.background', {'children': [('Entry.padding', {'children': [('Entry.textarea', {'sticky': 'nswe'})], 'sticky': 'nswe'})], 'sticky': 'nswe'})], 'border':'2', 'sticky': 'nswe'})])
+    # estyle.configure("EntryStyle.TEntry", background="green", foreground="grey", fieldbackground="blue")
+    # ttk.Entry(self.root, style="EntryStyle.TEntry").grid(column = 1, row = 0)
+    estyle = ttk.Style()
+    estyle.configure('style.TEntry', fieldbackground="red", foreground="orange")
+    ttk.Entry(self.root, style='style.TEntry').grid(column = 1, row = 0)
 
     # Heading
-    lp = ttk.Label(self.root, text="Title", font="helvetica 24", width=19)
+    lp = ttk.Label(self.root, text="Title", font="helvetica 24", width=12, borderwidth=2, relief="raised")
     lp.grid(padx=0, pady=0)
     lp.grid(column = 0, row = 1)
 
@@ -124,19 +131,20 @@ class DiskSpeed:
     (l3r_text, l3r, l3v_text, l3v) = self.create_disk_info(2, 0, 4)
 
   def create_disk_info(self, index, col, row_num):
-    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=28)
+    # "flat", "raised", "sunken", "ridge", "solid", and "groove".
+    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=28, borderwidth=2, relief="raised")
     lb.grid(padx=1, pady=0)
     lb.grid(column = col, row = row_num)
 
     lbr_text = StringVar()
     lbr_text.set(self.value_list[index])
-    lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=28)
+    lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=28, borderwidth=4, relief="raised")
     lbr.grid(padx=1, pady=0)
     lbr.grid(column = (col+1), row = row_num)
 
     lbv_text = StringVar()
     lbv_text.set(self.units_list[index])
-    lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=28)
+    lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=28, borderwidth=4, relief="raised")
     lbv.grid(padx=1, pady=0)
     lbv.grid(column = (col+2), row = row_num)
 
