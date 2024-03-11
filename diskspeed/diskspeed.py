@@ -11,9 +11,10 @@ class DiskSpeed:
   def __init__(self):
     self.root = Tk()
     self.get_disks()
-    self.get_disk_info()
-    self.parse_disk_info()
-    self.display_disk_info()
+    # self.get_disk_info()
+    self.button_control()
+    # self.parse_disk_info()
+    # self.display_disk_info()
 
   def my_print(self, event):
     # print(self.value_list[0])
@@ -58,17 +59,31 @@ class DiskSpeed:
     ### disk_letters.bind('<<ComboboxSelected>>', lambda even: print(self.disk_name.get()))
     self.disk_letters.bind('<<ComboboxSelected>>', self.my_print)
 
+    
+  def getdiskinfo(self):
+    print("Button", self.disks[self.disk_letters.current()])
+    self.get_disk_info()
+    self.parse_disk_info()
+    self.display_disk_info()
+    
+  def button_control(self):
+    button = Button(self.root, text="HJA", command=self.getdiskinfo)
+    button.grid(column = 2, row = 0)
 
+
+
+    
   def get_disk_info(self):
     print("Start Disk Speed")
     # Disk Speed
-    dsk_drv = "C"
+    dsk_drv = self.disks[self.disk_letters.current()]
+    print("Disk Drive=", dsk_drv)
 
     logf="disk_"+dsk_drv+"_info.log"
 
     # Get Disk Info, debug
-    # result = subprocess.run(["winsat" , "disk" , "-drive", "C"], shell=True, capture_output=True, text=True)
-    # print("Result:", result.stdout, file=open(logf, 'w'))
+    result = subprocess.run(["winsat" , "disk" , "-drive", dsk_drv], shell=True, capture_output=True, text=True)
+    print("Result:", result.stdout, file=open(logf, 'w'))
 
     # Now read the file and process it
     file = open(logf, 'rt')
