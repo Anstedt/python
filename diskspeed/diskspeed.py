@@ -17,6 +17,7 @@ class DiskSpeed:
     # self.display_disk_info()
 
   def my_print(self, event):
+    self.button_text.set("Disk Speed Disk "+self.combo_text.get())
     # print(self.value_list[0])
     l1r.config(text = str(self.value_list[0]))
     # This works but not neede here: l1r_text.set(self.disks[self.disk_letters.current()])
@@ -24,7 +25,7 @@ class DiskSpeed:
     l3r.config(text = str(self.value_list[2]))
 
     # Update Combo box
-    self.combo_text.set(self.disks[self.disk_letters.current()])
+    # self.combo_text.set(self.disks[self.disk_letters.current()])
 
   def get_disks(self):
     print("Start Disk Letters")
@@ -63,11 +64,16 @@ class DiskSpeed:
   def getdiskinfo(self):
     print("Button", self.disks[self.disk_letters.current()])
     self.get_disk_info()
-    self.parse_disk_info()
-    self.display_disk_info()
+
+    if self.combo_text.get() != "Select Disk Letter":
+      print("The Disk Label =", (self.combo_text.get()))
+      self.parse_disk_info()
+      self.display_disk_info()
     
   def button_control(self):
-    button = Button(self.root, text="HJA", command=self.getdiskinfo)
+    self.button_text = StringVar()
+    self.button_text.set("Select Letter")
+    button = Button(self.root, textvariable=self.button_text, command=self.getdiskinfo)
     button.grid(column = 2, row = 0)
 
 
@@ -76,7 +82,8 @@ class DiskSpeed:
   def get_disk_info(self):
     print("Start Disk Speed")
     # Disk Speed
-    dsk_drv = self.disks[self.disk_letters.current()]
+    # dsk_drv = self.disks[self.disk_letters.current()]
+    dsk_drv = self.combo_text.get()
     print("Disk Drive=", dsk_drv)
 
     logf="disk_"+dsk_drv+"_info.log"
