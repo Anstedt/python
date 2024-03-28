@@ -14,15 +14,15 @@ class DiskSpeed:
     # self.get_disk_info()
     self.button_control()
     # self.parse_disk_info()
-    # self.display_disk_info()
+    self.display_disk_info()
 
   def my_print(self, event):
     self.button_text.set("Disk Speed Disk "+self.combo_text.get())
     # print(self.value_list[0])
-    l1r.config(text = str(self.value_list[0]))
+    # l1r.config(text = str(self.value_list[0]))
     # This works but not neede here: l1r_text.set(self.disks[self.disk_letters.current()])
-    l2r.config(text = str(self.value_list[1]))
-    l3r.config(text = str(self.value_list[2]))
+    # l2r.config(text = str(self.value_list[1]))
+    # l3r.config(text = str(self.value_list[2]))
 
     # Update Combo box
     # self.combo_text.set(self.disks[self.disk_letters.current()])
@@ -69,7 +69,18 @@ class DiskSpeed:
       print("The Disk Label =", (self.combo_text.get()))
       self.parse_disk_info()
       self.display_disk_info()
-    
+      l1_text.set(str(self.title_list[0]))
+      l1r_text.set(str(self.value_list[0]))
+      l1v_text.set(str(self.units_list[0]))
+
+      l2_text.set(str(self.title_list[1]))
+      l2r_text.set(str(self.value_list[1]))
+      l2v_text.set(str(self.units_list[1]))
+
+      l3_text.set(str(self.title_list[2]))
+      l3r_text.set(str(self.value_list[2]))
+      l3v_text.set(str(self.units_list[2]))
+
   def button_control(self):
     self.button_text = StringVar()
     self.button_text.set("Select Letter")
@@ -84,7 +95,7 @@ class DiskSpeed:
     # Disk Speed
     # dsk_drv = self.disks[self.disk_letters.current()]
     dsk_drv = self.combo_text.get()
-    print("Disk Drive=", dsk_drv)
+    print("Disk Drive =", dsk_drv)
 
     logf="disk_"+dsk_drv+"_info.log"
 
@@ -138,39 +149,55 @@ class DiskSpeed:
     lp.grid(column = 0, row = 1)
 
     # Disk Info 1
+    global l1_text, l1
     global l1r_text, l1r
     global l1v_text, l1v
-    (l1r_text, l1r, l1v_text, l1v) = self.create_disk_info(0, 0, 2)
+    (l1_text, l1, l1r_text, l1r, l1v_text, l1v) = self.create_disk_info(0, 0, 2)
 
+    l1_text.set('Name 1')
+    l1r_text.set('Result 1')
+    l1v_text.set('Units 1')
+    
     # Disk Info 2
+    global l2_text, l2
     global l2r_text, l2r
     global l2v_text, l2v
-    (l2r_text, l2r, l2v_text, l2v) = self.create_disk_info(1, 0, 3)
+    (l2_text, l2, l2r_text, l2r, l2v_text, l2v) = self.create_disk_info(1, 0, 3)
+
+    l2_text.set('Name 2')
+    l2r_text.set('Result 2')
+    l2v_text.set('Units 2')
 
     # Disk Info 3
+    global l3_text, l3
     global l3r_text, l3r
     global l3v_text, l3v
-    (l3r_text, l3r, l3v_text, l3v) = self.create_disk_info(2, 0, 4)
+    (l3_text, l3, l3r_text, l3r, l3v_text, l3v) = self.create_disk_info(2, 0, 4)
+
+    l3_text.set('Name 3')
+    l3r_text.set('Result 3')
+    l3v_text.set('Units 3')
 
   def create_disk_info(self, index, col, row_num):
     # "flat", "raised", "sunken", "ridge", "solid", and "groove".
-    lb = ttk.Label(self.root, text=self.title_list[index], font="helvetica 16", width=22, borderwidth=2, relief="raised")
-    lb.grid(padx=1, pady=0)
-    lb.grid(column = col, row = row_num)
+    ln_text = StringVar()
+    ln = ttk.Label(self.root, textvariable=ln_text, font="helvetica 16", width=22, borderwidth=2, relief="raised")
+    ln.grid(padx=1, pady=0)
+    ln.grid(column = col, row = row_num)
 
     lbr_text = StringVar()
-    lbr_text.set(self.value_list[index])
+    # lbr_text.set(self.value_list[index])
     lbr = ttk.Label(self.root, textvariable=lbr_text, font="helvetica 16", width=10, borderwidth=4, relief="raised", anchor="e")
     lbr.grid(padx=1, pady=0)
     lbr.grid(column = (col+1), row = row_num)
 
     lbv_text = StringVar()
-    lbv_text.set(self.units_list[index])
+    # lbv_text.set(self.units_list[index])
     lbv = ttk.Label(self.root, textvariable=lbv_text, font="helvetica 16", width=6, borderwidth=4, relief="raised", anchor="center")
     lbv.grid(padx=1, pady=0)
     lbv.grid(column = (col+2), row = row_num)
 
-    return(lbr_text, lbr, lbv_text, lbv) 
+    return(ln_text, ln, lbr_text, lbr, lbv_text, lbv) 
         
 def main():
   ds = DiskSpeed();
